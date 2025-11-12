@@ -7,7 +7,7 @@ Key Contributions:
 - A Self-Training Semi-Supervised Learning Algorithm (SSSTR)
 - Resampling techniques to address class imbalance: SMOTE and CBUTE
 - Recursive Feature Elimination (RFE) with SVM and Bit-Flip local search for feature selection
-- Evaluation using six classifiers and multiple metrics: Accuracy, Recall, F1-Score, G-Mean, and AUC
+- Evaluation using six classifiers and multiple metrics: Recall, G-Mean, and AUC
 
 This research's dataset combines:
 A publicly available labeled dataset from GitHub:
