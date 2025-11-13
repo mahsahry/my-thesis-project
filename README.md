@@ -1,7 +1,6 @@
 ## Detecting fake accounts on TikTok
 Project Overview:
-This repository contains the implementation and analysis from my MSc thesis in Cybersecurity at the University of Twente, in collaboration with the University of Padua.
-The project investigates machine learning techniques for detecting fake TikTok accounts using a semi-supervised learning framework, adapted from prior research on social platforms.
+This repository provides the implementation and experiment pipelines for a study on semi-supervised fake-account detection in online social networks. It includes data preprocessing scripts, model training/evaluation code, and instructions to reproduce the reported results. The repository is anonymized for double-blind review.
 
 Key Contributions:
 - A Self-Training Semi-Supervised Learning Algorithm (SSSTR)
