@@ -46,10 +46,10 @@ The figures below summarize Recall, G-Mean, and AUC across all feature subsets
 (3, 5, 7, and Best), sampling methods (NORS, SMOTE, CBUTE), and classifiers.
 
 **Figure 3 – Classifier performance across feature subsets (Min–Max normalization)**  
-![](../figures/feature_subsets_minmax.png)
+![](../figures/feature_subsets_minmax.jpg)
 
 **Figure 4 – Classifier performance across feature subsets (Z-score normalization)**  
-![](../figures/feature_subsets_zscore.png)
+![](../figures/feature_subsets_zscore.jpg)
 
 These figures provide a visual overview of how model performance changes as
 feature dimensionality increases and how each resampling strategy influences
