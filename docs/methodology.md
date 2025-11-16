@@ -151,9 +151,6 @@ The original study evaluated the following discrete values:
 
 h ∈ {0.05, 0.10, 0.20, 0.30, 0.40, 0.50}
 
-yaml
-Copy code
-
 These values were tested to understand how adding different proportions of
 high-confidence unlabeled samples affects performance.
 
