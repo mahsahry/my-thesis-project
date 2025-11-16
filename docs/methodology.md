@@ -110,3 +110,146 @@ entering the self-training loop.
 
 These figures summarize how data flows through the system from preprocessing to
 final evaluation.
+
+### 7. Parameter h in Self-Training
+#### Definition and Function
+
+In the self-training framework, the parameter **h** determines how many
+unlabeled instances are added to the labeled dataset at each iteration.
+As introduced by Zeng et al. (2022), the classifier ranks all unlabeled
+samples by confidence and selects the top:
+
+    top_h = h × |U|
+
+These selected samples are added to the labeled dataset with their predicted
+labels. Over multiple iterations, the labeled set expands progressively,
+allowing the classifier to improve using high-confidence pseudo-labels.
+
+---
+
+#### Importance of h
+
+Choosing an appropriate **h** is critical:
+
+- **Small h**
+  - Adds only the most confident predictions  
+  - Produces cleaner labels  
+  - Slows down the learning process  
+
+- **Large h**
+  - Labels more samples per iteration  
+  - Speeds up learning  
+  - Increases risk of adding noisy or incorrect pseudo-labels  
+
+Thus, **h controls the trade-off between learning speed and pseudo-label quality**.
+
+---
+
+#### Experimental Range (from Zeng et al., 2022)
+
+The original study evaluated the following discrete values:
+
+h ∈ {0.05, 0.10, 0.20, 0.30, 0.40, 0.50}
+
+yaml
+Copy code
+
+These values were tested to understand how adding different proportions of
+high-confidence unlabeled samples affects performance.
+
+The authors reported the following optimal h values:
+
+| Classifier | Optimal h |
+|-----------|-----------|
+| CART | 0.20 |
+| KNN | 0.05 |
+| Naïve Bayes | 0.40 |
+| Gradient Boosting | 0.50 |
+| AdaBoost | 0.50 |
+| Random Forest | 0.30 |
+
+---
+
+#### Adopted Configuration in This Research
+
+Because the original h-values were obtained using a **Twitter** dataset,
+they may not generalize to TikTok, which has:
+
+- different feature distributions  
+- different account behavior  
+- different fake–real patterns  
+
+Therefore, in this study, the same candidate values were tested:
+
+h ∈ {0.05, 0.10, 0.20, 0.30, 0.40, 0.50}
+
+Each classifier was evaluated under:
+
+- both normalization methods (Min–Max, Z-score)  
+- both resampling methods (SMOTE, CBUTE)  
+- using Recall, G-Mean, and AUC  
+
+The best **h** was selected based on performance on the labeled data, then used
+consistently during the SSSTR iterations.
+
+---
+
+### Final Selected Values of h
+
+Below are the empirically determined optimal values of **h** under all four
+combinations of normalization and resampling.
+
+---
+
+#### **CBUTE + Min–Max Normalization**
+
+| Classifier | Optimal h |
+|-----------|-----------|
+| CART | 0.20 |
+| KNN | 0.10 |
+| Naïve Bayes | 0.40 |
+| Gradient Boosting | 0.45 |
+| AdaBoost | 0.45 |
+| Random Forest | 0.30 |
+
+---
+
+#### **CBUTE + Z-Score Normalization**
+
+| Classifier | Optimal h |
+|-----------|-----------|
+| CART | 0.20 |
+| KNN | 0.10 |
+| Naïve Bayes | 0.40 |
+| Gradient Boosting | 0.40 |
+| AdaBoost | 0.45 |
+| Random Forest | 0.30 |
+
+---
+
+#### **SMOTE + Min–Max Normalization**
+
+| Classifier | Optimal h |
+|-----------|-----------|
+| CART | 0.20 |
+| KNN | 0.45 |
+| Naïve Bayes | 0.40 |
+| Gradient Boosting | 0.45 |
+| AdaBoost | 0.45 |
+| Random Forest | 0.30 |
+
+---
+
+#### **SMOTE + Z-Score Normalization**
+
+| Classifier | Optimal h |
+|-----------|-----------|
+| CART | 0.20 |
+| KNN | 0.05 |
+| Naïve Bayes | 0.40 |
+| Gradient Boosting | 0.45 |
+| AdaBoost | 0.45 |
+| Random Forest | 0.30 |
+
+---
+
