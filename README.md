@@ -1,18 +1,161 @@
-## Detecting fake accounts on TikTok
-Project Overview:
-This repository provides the implementation and experiment pipelines for a study on semi-supervised fake-account detection in online social networks. It includes data preprocessing scripts, model training/evaluation code, and instructions to reproduce the reported results. The repository is anonymized for double-blind review.
+# Detecting Fake Accounts on TikTok
 
-Key Contributions:
-- A Self-Training Semi-Supervised Learning Algorithm (SSSTR)
-- Resampling techniques to address class imbalance: SMOTE and CBUTE
-- Recursive Feature Elimination (RFE) with SVM and Bit-Flip local search for feature selection
-- Evaluation using six classifiers and multiple metrics: Recall, G-Mean, and AUC
+This repository accompanies a study on semi-supervised fake-account detection in TikTok.
+It documents the dataset schema, preprocessing steps, feature selection strategies,
+class imbalance solutions, experimental settings, and summarized results.  
+The repository is anonymized for double-blind review and does **not** contain the
+original dataset or any identifying information.
 
-This research's dataset combines:
-A publicly available labeled dataset from GitHub:
-- [Fake TikTok Account Detection](https://github.com/raffaele-aurucci/Fake-TikTok-Account-Detection)
-- Metadata collected through the TikTok API and the Apify platform
+---
 
-This work investigated model performance and the challenges of applying semi-supervised learning to TikTok fake account detection. 
-The results show that factors such as the amount of labeled data, classifier sensitivity to settings, and the quality of feature selection significantly influence outcomes. 
-In particular, models trained with limited labeled data or minimal feature sets often showed imbalanced performance, even when resampling techniques were applied. These insights are valuable for developing more reliable fake account detection systems and can guide future research toward improving model robustness under limited supervision.
+## Table of Contents
+1. [Project Overview](#project-overview)  
+2. [Dataset and Feature Schema](#dataset-and-feature-schema)  
+3. [Methodology](#methodology)  
+4. [Experimental Results (Overview)](#experimental-results-overview)  
+5. [Repository Structure](#repository-structure)  
+6. [How to Reproduce the Pipeline](#how-to-reproduce-the-pipeline)
+
+---
+
+## Project Overview
+
+This project investigates fake-account detection on TikTok under limited supervision.
+A semi-supervised self-training framework (SSSTR) is used to leverage a small labeled
+dataset together with a larger pool of unlabeled TikTok accounts.
+
+### Key Contributions
+- **Self-Training Semi-Supervised Learning (SSSTR)** for fake account detection.
+- **Resampling techniques** to handle class imbalance:
+  - SMOTE (oversampling)
+  - CBUTE (cluster-based undersampling)
+- **Feature Selection** using:
+  - Recursive Feature Elimination with SVM (RFE-SVM)
+  - Bit-Flip local search to refine compact feature subsets
+- **Evaluation across six classifiers** using:
+  - Recall  
+  - G-Mean  
+  - AUC  
+
+### Data Sources
+The study combines:
+- A publicly available labeled dataset from GitHub  
+- Additional metadata collected via the TikTok API and the Apify platform  
+
+To maintain anonymity and privacy, this repository distributes **only synthetic sample
+data and schema descriptions**, not the real dataset.
+
+---
+
+## Dataset and Feature Schema
+
+The real dataset includes labeled TikTok accounts (fake/real) and metadata extracted
+through the TikTok API. Typical features include:
+
+- Username  
+- Likes Count  
+- Video Count  
+- Follower / Following Count  
+- Is Verified  
+- Bio Length  
+- Has Contact Info  
+- Jaro Similarity  
+- Nickname Complexity  
+- Followers Ratio  
+- Face Detected (binary)  
+- Avatar Status  
+- Time-based features (weekday, hour, time gap)
+
+The repository provides:
+- `data/synthetic_sample.csv` – a **fully artificial sample** that mirrors the real dataset structure.
+- `data/README.md` – documentation of the schema and instructions for preparing your own dataset.
+
+---
+
+## Methodology
+
+### 1. Preprocessing  
+- Cleaning of text and boolean fields  
+- Conversion to numeric format  
+- Normalization using **Min–Max** and **Z-Score** scalers  
+
+### 2. Handling Class Imbalance  
+Three modes were tested:
+- No resampling  
+- SMOTE oversampling  
+- CBUTE undersampling  
+
+### 3. Feature Selection  
+Two complementary strategies were applied:
+
+1. **RFE-SVM (Recursive Feature Elimination with SVM)**  
+   Iteratively removes the least informative feature using SVM weight magnitudes.
+
+2. **Bit-Flip Local Search**  
+   Starts from an RFE result and explores neighbor subsets to refine performance.
+
+### 4. Semi-Supervised Self-Training (SSSTR)  
+Process:
+1. Start with few labeled data + many unlabeled accounts.  
+2. Train a classifier on the labeled set.  
+3. Predict unlabeled data.  
+4. Add high-confidence predictions to the labeled set.  
+5. Repeat until the unlabeled pool is empty.
+
+### 5. Classifiers  
+Six models were evaluated:
+- CART  
+- Random Forest  
+- Gradient Boosting  
+- AdaBoost  
+- K-Nearest Neighbors  
+- Naïve Bayes  
+
+### 6. Metrics  
+- **Recall** – sensitivity to fake accounts  
+- **G-Mean** – class balance  
+- **AUC** – ability to separate fake vs real  
+
+---
+
+## Experimental Results (Overview)
+
+Experiments explored:
+- 3-, 4-, 5-, and 7-feature subsets  
+- Two normalization methods  
+- Three resampling strategies  
+- Six classifiers  
+
+### Key Observations
+- Very small feature sets (3 features) achieve **high recall** but poor G-Mean/AUC.  
+- Medium-sized subsets (5–7 features) consistently improve balanced performance.  
+- Z-Score + SMOTE often gives the most stable performance across classifiers.  
+- A compact **4-feature subset** achieves strong results while remaining interpretable.  
+- Semi-supervised self-training improves recall but may amplify class imbalance if the
+  initial feature set is too weak.
+
+These findings highlight the importance of carefully chosen feature subsets,
+appropriate normalization, and resampling strategies in TikTok fake-account detection.
+
+---
+
+## Repository Structure
+
+```text
+.
+├── README.md
+├── .gitignore
+│
+├── data/
+│   ├── synthetic_sample.csv      # artificial example dataset
+│   └── README.md                 # schema + instructions
+│
+├── docs/
+│   ├── methodology.md            # full method description
+│   ├── rfe_svm_algorithm.md      # pseudocode for RFE-SVM
+│   └── results_overview.md       # summarized findings
+│
+└── figures/
+    ├── feature_importance.png
+    ├── performance_minmax.png
+    └── performance_zscore.png
