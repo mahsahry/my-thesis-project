@@ -20,11 +20,8 @@ Procedure:
            d. Remove the feature with the smallest |w_i|
     3. Set S = F
     4. Return S
-
-
-
-
-## Algorithm 2 — Self-Training Semi-Supervised Learning with Resampling (SSSTR)
+```
+## Algorithm 2 —Algorithm 2 — Self-Training Semi-Supervised Learning with Resampling (SSSTR)
 
 ```text
 Input:
@@ -85,3 +82,4 @@ Procedure:
 10. Predict labels for L_Test using the trained classifier
 
 11. Return predicted labels for L_Test
+```
