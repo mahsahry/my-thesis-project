@@ -144,18 +144,21 @@ appropriate normalization, and resampling strategies in TikTok fake-account dete
 ```text
 .
 ├── README.md
+├── LICENSE
 ├── .gitignore
 │
 ├── data/
-│   ├── synthetic_sample.csv      # artificial example dataset
-│   └── README.md                 # schema + instructions
+│   ├── synthetic_sample.csv      # artificial example dataset (same schema as real data)
+│   └── README.md                 # schema description + preparation tips
 │
 ├── docs/
-│   ├── methodology.md            # full method description
-│   ├── rfe_svm_algorithm.md      # pseudocode for RFE-SVM
-│   └── results_overview.md       # summarized findings
+│   ├── methodology.md            # full method description (preprocessing, SSSTR, resampling)
+│   ├── algorithms.md             # pseudocode for RFE-SVM, Bit-Flip, SSSTR
+│   └── results.md                # detailed results tables + figure references
 │
 └── figures/
-    ├── feature_importance.png
-    ├── performance_minmax.png
-    └── performance_zscore.png
+    ├── ssstr_pipeline_v1.png
+    ├── ssstr_pipeline_v2.png
+    ├── feature_subsets_minmax.png
+    └── feature_subsets_zscore.png
+
