@@ -1,69 +1,108 @@
+## Methodology
 
-# Algorithms
-
-This document provides the key algorithms used in the TikTok fake-account detection
-pipeline. These descriptions are implementation-agnostic and suitable for
-reproducibility without revealing code or dataset details.
-
----
-
-## 1. Recursive Feature Elimination with SVM (RFE-SVM)
-
-**Input:**  
-- Training data `X`  
-- Labels `y`  
-- Target number of features `k`
-
-**Output:**  
-- Selected subset `S` of `k` features
-
-**Procedure:**
-
-1. Initialize the feature set `F` with all feature indices in `X`.
-2. While the size of `F` is greater than `k`:
-   1. Train a linear SVM classifier on `X[:, F]` with labels `y`.
-   2. Obtain the weight vector `w` from the trained SVM.
-   3. Rank features in `F` by the absolute values of their weights `|wᵢ|`.
-   4. Remove from `F` the feature with the smallest `|wᵢ|`.
-3. Set `S = F`.
-4. Return `S` as the selected feature subset.
-
-RFE-SVM provides a simple yet effective way to identify compact feature subsets by
-iteratively pruning the least informative features.
+The detection pipeline consists of five main components: preprocessing, handling
+class imbalance, feature selection, semi-supervised learning (SSSTR), and classifier
+evaluation. Figures 1 and 2 (see below) provide a visual overview of the entire process.
 
 ---
 
-## 2. Self-Training Semi-Supervised Learning (SSSTR)
+### 1. Data Preprocessing
+The dataset contains TikTok account metadata and engineered behavioral features.
+Preprocessing included:
+- cleaning text fields and converting boolean attributes to numeric form,
+- normalizing all continuous features using **Min–Max** and **Z-Score** scaling,
+- removing unreliable time-based features (Create Time Hour, Weekday, Nickname Time Gap)
+  due to time-zone inconsistencies.
 
-**Input:**  
-- Labeled data `L = {(xᵢ, yᵢ)}`  
-- Unlabeled data `U = {xⱼ}`  
-- Base classifier `C`  
-- Confidence threshold `τ` (optional)
-
-**Output:**  
-- Expanded labeled dataset
-
-**Procedure:**
-
-1. Initialize the labeled set `L` and unlabeled pool `U`.
-2. Train the classifier `C` on `L`.
-3. Predict pseudo-labels for all instances in `U`.
-4. Select the instances whose predicted probabilities exceed the threshold `τ`
-   (e.g., highest-confidence predictions).
-5. Move these selected instances from `U` to `L`, using the pseudo-labels.
-6. Optionally apply a resampling method (e.g., SMOTE or CBUTE) to rebalance `L`.
-7. Repeat Steps 2–6 until `U` becomes empty or no new confident predictions remain.
-8. Return the expanded labeled set.
-
-This process leverages the large pool of unlabeled TikTok accounts to gradually
-augment the labeled dataset and improve classifier performance under limited supervision.
+Two normalized versions of the dataset were created to examine model sensitivity
+to scaling differences.
 
 ---
 
-## Notes
+### 2. Handling Class Imbalance
+Fake accounts form the minority class. Three strategies were explored:
 
-- Both algorithms are provided in pseudocode to preserve anonymity and avoid binding
-  the project to a particular programming language.
-- These algorithms are referenced in the main `README.md` and used throughout the
-  experimental pipeline.
+- **No resampling** — baseline  
+- **SMOTE oversampling** — generates synthetic minority instances  
+- **CBUTE undersampling** — removes redundant majority samples using a clustering-based strategy  
+
+Resampling was applied only to the **labeled portion** of the data during the
+semi-supervised training phase.  
+This corresponds to the *“Resample”* block in **Figure 1** and **Figure 2**.
+
+---
+
+### 3. Feature Selection
+Two methods were used to obtain compact and informative feature subsets:
+
+- **RFE-SVM (Recursive Feature Elimination)**  
+  Iteratively removes the least informative features using linear SVM weights.
+
+- **Bit-Flip Local Search**  
+  Starts from an RFE subset and explores neighboring subsets by flipping one
+  feature at a time, keeping any subset that improves the metric.
+
+Subsets of 3, 5, 7, and a refined 4-feature combination were evaluated.
+
+---
+
+### 4. Semi-Supervised Self-Training (SSSTR)
+The core of the pipeline is a semi-supervised self-training loop that augments
+the limited labeled dataset using predictions on a larger unlabeled pool.
+
+**Figure 1** illustrates the general SSSTR pipeline,  
+while **Figure 2** shows the version used in this study with an initial
+train/test split.
+
+#### SSSTR workflow:
+1. Split initial labeled data into **train** and **test** sets (Figure 2).
+2. Treat 90% of the training data as **unlabeled (U)** and 10% as **labeled (L)**.
+3. Apply SMOTE or CBUTE to rebalance L → produce **L-New**.
+4. Train classifier **C** on L-New.
+5. Predict labels for all instances in U.
+6. Sort predictions by confidence.
+7. Select the top high-confidence samples and move them from U to L-New.
+8. Repeat until U is empty or no confident instances remain.
+
+The final classifier is then trained on the expanded labeled set and evaluated on
+the held-out test set.
+
+---
+
+### 5. Classifiers and Metrics
+
+Six classifiers were evaluated:
+- CART  
+- Random Forest  
+- Gradient Boosting  
+- AdaBoost  
+- K-Nearest Neighbors  
+- Naïve Bayes  
+
+The following metrics were used:
+- **Recall (fake class)** — detects fake accounts  
+- **G-Mean** — ensures balanced class performance  
+- **AUC** — measures overall separability  
+
+These metrics capture both minority-class sensitivity and cross-class stability.
+
+---
+
+## 6. SSSTR Pipeline Diagrams
+
+The following diagrams illustrate the entire semi-supervised workflow:
+
+### **Figure 1 – SSSTR Pipeline (Version 1)**
+A high-level structure showing labeled/unlabeled split, resampling, and the
+self-training loop.
+
+![SSSTR Pipeline Version 1](figures/ssstr_pipeline_v1.png)
+
+### **Figure 2 – SSSTR Pipeline (Version 2)**
+The version used in this study, which includes an initial train/test split before
+entering the self-training loop.
+
+![SSSTR Pipeline Version 2](figures/ssstr_pipeline_v2.png)
+
+These figures summarize how data flows through the system from preprocessing to
+final evaluation.
