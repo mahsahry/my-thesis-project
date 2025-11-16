@@ -208,5 +208,3 @@ method across NORS, SMOTE, and CBUTE.
 |        | CBUTE | 79.51 | 78.52 | 78.00 | 71.79 | 69.96 | 82.26 |
 
 ---
-
-**End of Results**
