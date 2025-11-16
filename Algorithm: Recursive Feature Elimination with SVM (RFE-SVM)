@@ -1,0 +1,20 @@
+### Algorithm: Recursive Feature Elimination with SVM (RFE-SVM)
+
+**Input:**  
+- Training data `X` (shape: n_samples × n_features)  
+- Labels `y`  
+- Target number of features `k`
+
+**Output:**  
+- Selected feature subset `S` (indices of selected features)
+
+**Procedure:**
+
+1. Initialize the feature set `F` as all feature indices in `X`.
+2. While the size of `F` is greater than `k`:
+   1. Train a **linear SVM** classifier on `X[:, F]` with labels `y`.
+   2. Extract the weight vector `w` from the trained SVM.
+   3. Rank features in `F` by the absolute values of their weights `|w_i|`.
+   4. Remove from `F` the feature with the smallest `|w_i|`.
+3. Set `S = F`.
+4. Return `S` as the selected feature subset.
