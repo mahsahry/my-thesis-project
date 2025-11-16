@@ -1,30 +1,22 @@
+# Algorithms
 
-This is the correct way to render algorithms on GitHub.
-
----
-
-# ✅ **Do you also want the SSSTR algorithm?**
-Here is the GitHub-ready version (optional):
-
-```markdown
-## Algorithm 2 — Semi-Supervised Self-Training (SSSTR)
+## Algorithm 1 — Recursive Feature Elimination with SVM (RFE-SVM)
 
 ```text
 Input:
-    L — labeled dataset
-    U — unlabeled dataset
-    C — base classifier
-    h — number of high-confidence samples to add each iteration
+    X — training data
+    y — labels
+    k — target number of features
 
 Output:
-    Expanded labeled dataset L
+    S — selected feature subset
 
 Procedure:
-    1. Repeat until U is empty:
-           a. Train classifier C on L
-           b. Predict labels for all samples in U
-           c. Rank U by descending prediction confidence
-           d. Select the top h samples
-           e. Move selected samples from U to L
-           f. Optionally apply resampling (SMOTE / CBUTE) to L
-    2. Return L
+    1. Initialize F = all feature indices in X
+    2. While |F| > k:
+           a. Train a linear SVM classifier on X[:, F] with labels y
+           b. Extract the weight vector w from the trained SVM
+           c. Rank features in F by ascending |w_i|
+           d. Remove the feature with the smallest |w_i|
+    3. Set S = F
+    4. Return S
