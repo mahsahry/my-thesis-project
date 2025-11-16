@@ -14,8 +14,6 @@ original dataset or any identifying information.
 3. [Methodology](#methodology)  
 4. [Experimental Results (Overview)](#experimental-results-overview)  
 5. [Repository Structure](#repository-structure)  
-6. [How to Reproduce the Pipeline](#how-to-reproduce-the-pipeline)
-
 ---
 
 ## Project Overview
