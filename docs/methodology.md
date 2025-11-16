@@ -96,13 +96,15 @@ The following diagrams illustrate the entire semi-supervised workflow:
 A high-level structure showing labeled/unlabeled split, resampling, and the
 self-training loop.
 
-![SSSTR Pipeline Version 1](figures/ssstr_pipeline_v1.png)
+![SSSTR Pipeline Version 1](![SSSTR Pipeline Version 1](../figures/ssstr_pipeline_v1.png)
+)
 
 ### **Figure 2 – SSSTR Pipeline (Version 2)**
 The version used in this study, which includes an initial train/test split before
 entering the self-training loop.
 
-![SSSTR Pipeline Version 2](figures/ssstr_pipeline_v2.png)
+![SSSTR Pipeline Version 2](![SSSTR Pipeline Version 1](../figures/ssstr_pipeline_v2.png)
+)
 
 These figures summarize how data flows through the system from preprocessing to
 final evaluation.
