@@ -1,20 +1,27 @@
 ### 📄 Sample Labeled TikTok Dataset (Synthetic Example)
 
-| id   | username_len | face_detected | avatar_status | follower_count | following_count | friend_count | video_count | displayname_len | heart_count | verified | bio_present | has_contact_info | jaro_similarity | nickname_complexity | create_weekday | nickname_time_gap | label |
-|------|--------------|---------------|---------------|----------------|------------------|--------------|-------------|------------------|-------------|----------|-------------|-------------------|------------------|----------------------|----------------|--------------------|-------|
-| L001 | 8            | 1             | 1             | 1530           | 320              | 55           | 24          | 10               | 8420        | 0        | 1           | 0                 | 0.87             | 3.1                  | 2              | 14                 | 0  |
-| L002 | 5            | 0             | 0             | 12             | 7                | 0            | 0           | 5                | 0           | 0        | 0           | 0                 | 0.25             | 1.0                  | 5              | 43                 | 1  |
-| L003 | 11           | 1             | 1             | 9802           | 210              | 72           | 63          | 12               | 25500       | 1        | 1           | 1                 | 0.93             | 4.2                  | 0              | 7                  | 0  |
-| L004 | 6            | 0             | 0             | 4              | 2                | 0            | 1           | 6                | 12          | 0        | 1           | 0                 | 0.41             | 2.0                  | 6              | 29                 | 1  |
-| L005 | 9            | 1             | 1             | 502            | 88               | 10           | 14          | 7                | 1220        | 0        | 1           | 0                 | 0.78             | 3.7                  | 3              | 18                 | 0  |
+| Username (masked) | FaceDetected | Bio | FollowerCount | FollowingCount | VideoCount | DisplayName (masked) | JaroSim | Label |
+|-------------------|--------------|-----|----------------|----------------|------------|------------------------|---------|-------|
+| user_001          | 1            | 1   | 152            | 320            | 12         | name_001               | 0.82    | 0     |
+| user_002          | 0            | 0   | 3              | 145            | 0          | name_002               | 0.12    | 1     |
+| user_003          | 1            | 1   | 12400          | 980            | 56         | name_003               | 0.91    | 0     |
+| user_004          | 0            | 0   | 7              | 88             | 1          | name_004               | 0.05    | 1     |
+| user_005          | 1            | 1   | 420            | 395            | 19         | name_005               | 0.77    | 0     |
 
 
-  ### 📄 Sample Unlabeled TikTok Dataset (Synthetic Example)
 
-| id   | username_len | face_detected | avatar_status | follower_count | following_count | friend_count | video_count | displayname_len | heart_count | verified | bio_present | has_contact_info | jaro_similarity | nickname_complexity | create_weekday | nickname_time_gap |
-|------|--------------|---------------|---------------|----------------|------------------|--------------|-------------|------------------|-------------|----------|-------------|-------------------|------------------|----------------------|----------------|--------------------|
-| U001 | 7            | 0             | 0             | 3              | 1                | 0            | 0           | 6                | 0           | 0        | 0           | 0                 | 0.18             | 1.0                  | 4              | 31                 |
-| U002 | 10           | 1             | 1             | 2140           | 120              | 33           | 17          | 11               | 4200        | 0        | 1           | 0                 | 0.81             | 3.6                  | 1              | 12                 |
-| U003 | 6            | 1             | 0             | 350            | 47               | 5            | 4           | 7                | 160         | 0        | 1           | 0                 | 0.52             | 2.4                  | 2              | 22                 |
-| U004 | 9            | 1             | 1             | 7800           | 305              | 61           | 42          | 9                | 19500       | 1        | 1           | 1                 | 0.90             | 4.8                  | 0              | 5                  |
-| U005 | 8            | 0             | 0             | 15             | 11               | 0            | 1           | 5                | 20          | 0        | 0           | 0                 | 0.34             | 1.2                  | 6              | 37                 |
+### 📄 Sample Unlabeled TikTok Dataset (Synthetic Example)
+
+| Username (masked) | FaceDetected | Bio | FollowerCount | FollowingCount | VideoCount | DisplayName (masked) | JaroSim |
+|-------------------|--------------|-----|----------------|----------------|------------|------------------------|---------|
+| account_101       | 0            | 0   | 12             | 55             | 0          | alias_101             | 0.09    |
+| account_102       | 1            | 1   | 560            | 289            | 24         | alias_102             | 0.84    |
+| account_103       | 0            | 0   | 4              | 130            | 1          | alias_103             | 0.07    |
+| account_104       | 1            | 1   | 9200           | 820            | 33         | alias_104             | 0.88    |
+| account_105       | 0            | 1   | 78             | 99             | 3          | alias_105             | 0.42    |
+
+
+
+> **Privacy note:**  
+> The usernames and display names shown in these samples are masked placeholders (e.g., `user_001`, `name_001`) and do not correspond to real TikTok accounts.  
+> All values are synthetic and provided only to illustrate the dataset structure.
