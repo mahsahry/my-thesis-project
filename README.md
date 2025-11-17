@@ -136,27 +136,25 @@ These findings highlight the importance of carefully chosen feature subsets,
 appropriate normalization, and resampling strategies in TikTok fake-account detection.
 
 ---
+## ⚠️ Note on Datasets and Reproducibility
 
-## Repository Structure
+This repository provides **general-purpose code templates** for:
 
-```text
-.
-├── README.md
-├── LICENSE
-├── .gitignore
-│
-├── data/
-│   ├── synthetic_sample.csv      # artificial example dataset (same schema as real data)
-│   └── README.md                 # schema description + preparation tips
-│
-├── docs/
-│   ├── methodology.md            # full method description (preprocessing, SSSTR, resampling)
-│   ├── algorithms.md             # pseudocode for RFE-SVM, Bit-Flip, SSSTR
-│   └── results.md                # detailed results tables + figure references
-│
-└── figures/
-    ├── ssstr_pipeline_v1.png
-    ├── ssstr_pipeline_v2.png
-    ├── feature_subsets_minmax.png
-    └── feature_subsets_zscore.png
+- Semi-supervised self-training (SSSTR-style)
+- h-sweep hyperparameter selection for self-training
+- Experiments with resampling and multiple classifiers
 
+However, the scripts **cannot be executed out-of-the-box** because:
+
+1. **No dataset is included in this repository.**  
+2. The code is written in a **general form**, expecting the user to plug in their own dataset.
+
+### 🔒 Why the dataset is not shared
+
+The experiments in the associated work were conducted on **real-world social media data**, which may include sensitive user information.  
+Due to **ethical, privacy, and platform-policy constraints**, the original dataset:
+
+- **cannot be made publicly available**, and  
+- **cannot be uploaded to this repository**.
+
+Sharing it would violate privacy and responsible data-use guidelines.
