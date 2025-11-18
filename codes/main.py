@@ -153,3 +153,57 @@ def evaluate_ssstr_model(
         "auc": auc,
         "gmean": gmean,
     }
+
+
+
+if __name__ == "__main__":
+    import pandas as pd
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.impute import SimpleImputer
+    from sklearn.tree import DecisionTreeClassifier
+
+    FILE_PATH = "your_dataset.csv"
+    TARGET_COLUMN = "label"
+    FEATURE_COLUMNS = [...]
+
+    df = pd.read_csv(FILE_PATH)
+    X = df[FEATURE_COLUMNS].values
+    y = df[TARGET_COLUMN].values
+
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
+
+    imputer = SimpleImputer(strategy="mean")
+    X = imputer.fit_transform(X)
+
+    X_train_full, X_test, y_train_full, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    X_L, X_U, y_L, _ = train_test_split(
+        X_train_full, y_train_full, test_size=0.90, random_state=42
+    )
+
+    H_LIST = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50]
+    base_classifier = DecisionTreeClassifier(random_state=42)
+
+    results = []
+
+    for h in H_LIST:
+        model, X_final, y_final, _ = ssstr_self_train(
+            base_estimator=base_classifier,
+            X_train=X_L,
+            y_train=y_L,
+            X_unlabeled=X_U,
+            h=h,
+            max_iterations=10,
+            return_history=False,
+        )
+
+        metrics = evaluate_ssstr_model(model, X_test, y_test)
+        metrics["h"] = h
+        results.append(metrics)
+
+    for r in results:
+        print(f"{r['h']},{r['recall']:.4f},{r['gmean']:.4f},{r['auc']:.4f}")
