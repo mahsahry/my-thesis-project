@@ -21,7 +21,7 @@ Procedure:
     3. Set S = F
     4. Return S
 ```
-## Algorithm 2 —Algorithm 2 — Self-Training Semi-Supervised Learning with Resampling (SSSTR)
+## Algorithm 2 — Self-Training Semi-Supervised Learning with Resampling (SSSTR)
 
 ```text
 Input:
