@@ -217,3 +217,18 @@ Each cell shows the best AUC (%) achieved over all resampling strategies.
 | NB | 86.24 (CBUTE) | 87.73 (NORS) | 57.71 (SMOTE) | 56.73 (SMOTE) |
 
 *Results from 5-fold stratified cross-validation. Bold = AUC ≥ 95.0%. 🏆 = overall peak.*
+
+---
+## 📈 Figures
+
+### Figure 1. AUC heatmap (best resampling) across classifier × feature subset
+- PDF: `fig1_heatmap_new.pdf`
+- PNG preview:
+
+![AUC Heatmap: Classifier × Feature Subset (Best Resampling)](figures/fig1_heatmap_new.png)
+
+### Figure 2. AUC by feature subset and resampling (top classifiers: AB, GB, RF)
+- PDF: `fig2_grouped_bar_new.pdf`
+- PNG preview:
+
+![AUC by Feature Subset and Resampling (Top Classifiers)](figures/fig2_grouped_bar_new.png)
