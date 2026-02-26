@@ -136,18 +136,6 @@ These findings highlight the importance of carefully chosen feature subsets,
 appropriate normalization, and resampling strategies in TikTok fake-account detection.
 
 ---
-## ⚠️ Note on Datasets and Reproducibility
-
-This repository provides **general-purpose code templates** for:
-
-- Semi-supervised self-training (SSSTR-style)
-- h-sweep hyperparameter selection for self-training
-- Experiments with resampling and multiple classifiers
-
-However, the scripts **cannot be executed out-of-the-box** because:
-
-1. **No dataset is included in this repository.**  
-2. The code is written in a **general form**, expecting the user to plug in their own dataset.
 
 ### 🔒 Why the dataset is not shared
 
