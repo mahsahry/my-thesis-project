@@ -24,19 +24,11 @@ LABELED_FRACTION = 0.10
 ADD_NOISE        = True
 NOISE_LEVEL      = 0.3
 NOISE_COLS       = ['likesCount', 'videoCount', 'followerCount', 'followingCount']
-H_VALUES         = [0.1, 0.2, 0.3, 0.5]
+H_VALUES         = [0.1, 0.2, 0.3, 0.4, 0.5]
 
-# ── Kaggle dataset names ──────────────────────────────────────
-# Run this first in a Kaggle cell to confirm exact names:
-#   import os; print(os.listdir('/kaggle/input'))
-# Then paste the names below:
-KAGGLE_DATASET_LABELLED   = 'Labelled.csv'    # ← CHANGE THIS
-KAGGLE_DATASET_UNLABELLED = 'Unlabelled.csv'  # ← CHANGE THIS
-# ─────────────────────────────────────────────────────────────
-
-LABELLED_PATH   = '/kaggle/input/datasets/mahsaheidary/labelled-dataset/Labelled.csv'
-UNLABELLED_PATH = '/kaggle/input/datasets/mahsaheidary/unlabelled-dataset/Unlabelled.csv'
-OUT_PATH        = '/kaggle/working'
+LABELLED_PATH   = ''
+UNLABELLED_PATH = ''
+OUT_PATH        = ''
 
 OUTPUT_FILE = f'{OUT_PATH}/ssstr_fold_{RUN_ONLY_FOLD}.csv'
 
@@ -572,4 +564,3 @@ print(final.to_string(index=False))
 # avg_results = avg_results.reset_index()
 # avg_results.to_csv(f'{OUT_PATH}/ssstr_cv_results.csv', index=False)
 # print(avg_results.to_string(index=False))
-
