@@ -1,5 +1,8 @@
-![ Detecting Fake Accounts on TikTok](figures/download.png)
+<p align="center">
+  <img src="figures/download.png" alt="Detecting Fake Accounts on TikTok" width="700">
+</p>
 
+## Detecting Fake Accounts on TikTok
 This repository accompanies a study on semi-supervised fake-account detection in TikTok.
 It documents the dataset schema, preprocessing steps, feature selection strategies,
 class imbalance solutions, experimental settings, and summarized results.  
