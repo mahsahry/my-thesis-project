@@ -1,4 +1,6 @@
-
+<p align="center">
+  <img src="figures/logo.png" alt="Detecting Fake Accounts on TikTok" width="200">
+</p>
 ## Dataset
 
 | Dataset | Accounts | Description |
