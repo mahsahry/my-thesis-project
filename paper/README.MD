@@ -64,7 +64,7 @@ Evaluate final C on L_test → Recall, G-Mean, AUC
 
 **Classifiers:** CART, Random Forest, Gradient Boosting, AdaBoost, KNN, Naïve Bayes
 
-**Self-training parameter h** tuned over {0.1, 0.2, 0.3, 0.4, 0.5} per classifier, selecting the value maximizing (G-Mean + AUC) / 2.
+**Self-training parameter h** tuned over {0.1, 0.2, 0.3, 0.4, 0.5} per classifier, selecting the value maximizing (G-Mean + AUC).
 
 **Evaluation:** 5-fold stratified cross-validation; mean and standard deviation reported.
 
