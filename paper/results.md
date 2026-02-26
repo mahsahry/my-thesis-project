@@ -1,13 +1,3 @@
-# 📊 Full Experimental Results
-
-Complete 5-fold cross-validation results across all configurations.  
-Values are **mean ± std** over 5 folds.
-
-> 🏆 **Peak AUC: 95.34%** - AdaBoost, Min-Max, 5-feat, CBUTE  
-> 🎯 **Peak G-Mean: 94.02%** - Random Forest, Z-Score, 5-feat, NORS
-
----
-
 ## Min-Max Normalization
 
 ### 3-feat (3 Features)
