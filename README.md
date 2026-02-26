@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="figures/download.png" alt="Detecting Fake Accounts on TikTok" width="300">
+  <img src="figures/download.png" alt="Detecting Fake Accounts on TikTok" width="200">
 </p>
 
 ## Detecting Fake Accounts on TikTok
