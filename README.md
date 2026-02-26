@@ -1,3 +1,5 @@
+figures/download.png
+
 # Detecting Fake Accounts on TikTok
 
 This repository accompanies a study on semi-supervised fake-account detection in TikTok.
