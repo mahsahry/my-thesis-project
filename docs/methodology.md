@@ -1,6 +1,6 @@
 ## Methodology
 
-### 1. Semi-Supervised Self-Training (SSSTR)
+### Semi-Supervised Self-Training (SSSTR)
 The core of the pipeline is a semi-supervised self-training loop that augments
 the limited labeled dataset using predictions on a larger unlabeled pool.
 
@@ -23,26 +23,7 @@ the held-out test set.
 
 ---
 
-### 2. Classifiers and Metrics
-
-Six classifiers were evaluated:
-- CART  
-- Random Forest  
-- Gradient Boosting  
-- AdaBoost  
-- K-Nearest Neighbors  
-- Naïve Bayes  
-
-The following metrics were used:
-- **Recall (fake class)** — detects fake accounts  
-- **G-Mean** — ensures balanced class performance  
-- **AUC** — measures overall separability  
-
-These metrics capture both minority-class sensitivity and cross-class stability.
-
----
-
-## 3. SSSTR Pipeline Diagrams
+## SSSTR Pipeline Diagrams
 
 The following diagrams illustrate the entire semi-supervised workflow:
 
