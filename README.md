@@ -5,9 +5,7 @@
 ## Detecting Fake Accounts on TikTok
 This repository accompanies a study on semi-supervised fake-account detection in TikTok.
 It documents the dataset schema, preprocessing steps, feature selection strategies,
-class imbalance solutions, experimental settings, and summarized results.  
-The repository is anonymized for double-blind review and does **not** contain the
-original dataset or any identifying information.
+class imbalance solutions, experimental settings, and summarized results. 
 
 ---
 
